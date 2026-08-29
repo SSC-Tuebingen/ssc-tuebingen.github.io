@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sports = [
+  { name: 'Fußball', slug: 'fussball', description: 'Teams von Bambini bis Herren', mark: 'F' },
+  { name: 'Volleyball', slug: 'volleyball', description: 'Jugend-, Damen- und Herrenteams', mark: 'V' },
+  { name: 'American Football', slug: 'american-football', description: 'Red Knights, Jugend und Flag Football', mark: 'A' },
+  { name: 'Cheerleading', slug: 'cheerleading', description: 'Dragons für Peewees, Juniors und Seniors', mark: 'C' },
+  { name: 'Tanzen', slug: 'tanzen', description: 'Tanztraining für Kinder', mark: 'T' },
+  { name: 'Inklusion', slug: 'inklusion', description: 'Tübingen United – gemeinsam Fußball spielen', mark: 'I' },
+  { name: 'Kindersport', slug: 'kindersport', description: 'Spiel und Bewegung für Kinder', mark: 'K' },
+  { name: 'Lauftreff', slug: 'lauftreff', description: 'Offener Lauf- und Nordic-Walking-Treff', mark: 'L' },
+];
+---
+
+<BaseLayout title="SSC Tübingen – Sport und Gemeinschaft" description="Sportangebote, Trainingszeiten und Neuigkeiten des SSC Tübingen 1988 e. V.">
+  <aside class="notice" aria-label="Wichtiger Hinweis">
+    <div class="shell"><strong>Prototyp:</strong><p>Inhalte und Termine werden vor Veröffentlichung vom Verein geprüft.</p></div>
+  </aside>
+
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <p class="eyebrow">Gemeinsam in Bewegung</p>
+        <h1>Dein Sport.<br />Dein Verein.</h1>
+        <p class="lede">Beim SSC Tübingen finden Kinder, Jugendliche und Erwachsene Sport, Teamgeist und eine offene Gemeinschaft.</p>
+        <div class="hero-actions">
+          <a class="button" href="/sportangebote/">Sportangebot finden</a>
+          <a class="button button-secondary" href="/verein/mitglied-werden/">Mitglied werden</a>
+        </div>
+      </div>
+      <dl class="hero-facts">
+        <div><dt>Gegründet</dt><dd>1988</dd></div>
+        <div><dt>Sportangebote</dt><dd>8 Bereiche</dd></div>
+        <div><dt>Vereinsgelände</dt><dd>Holderfeld</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sport-title">
+    <div class="shell">
+      <div class="section-head">
+        <div><p class="eyebrow">Sportangebote</p><h2 id="sport-title">Hier ist für alle etwas dabei</h2><p class="lede">Vom ersten Ballkontakt bis zum ambitionierten Teamsport – entdecke dein Angebot.</p></div>
+        <a href="/trainingszeiten/">Alle Trainingszeiten →</a>
+      </div>
+      <div class="card-grid">
+        {sports.map((sport) => (
+          <a class="sport-card" href={`/sportangebote/${sport.slug}/`} data-mark={sport.mark}>
+            <h3>{sport.name}</h3><p>{sport.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="news-title">
+    <div class="shell">
+      <div class="section-head"><div><p class="eyebrow">Aktuelles</p><h2 id="news-title">Neuigkeiten aus dem Verein</h2></div><a href="/aktuelles/">Alle Meldungen →</a></div>
+      <div class="news-grid">
+        <article class="news-card featured"><time datetime="2026-08-20">20. August 2026</time><h3><a href="/aktuelles/website-prototyp/">Eine neue Website für den SSC</a></h3><p>Dieser Prototyp zeigt, wie Neuigkeiten, Trainingszeiten und Kontakte künftig leichter zu finden und zu pflegen sind.</p></article>
+        <article class="news-card"><time datetime="2026-08-18">18. August 2026</time><h3>Neue Saison</h3><p>Beispielmeldung: Die Teams bereiten sich auf den Saisonstart vor.</p></article>
+        <article class="news-card"><time datetime="2026-08-12">12. August 2026</time><h3>Mitmachen erwünscht</h3><p>Beispielmeldung: Viele Gruppen freuen sich über neue Gesichter.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell quick-panel">
+      <div><p class="eyebrow">Schnell ans Ziel</p><h2>Wann findet mein Training statt?</h2><p>Alle Trainingszeiten nach Sportangebot, Team und Wochentag – mit Ort und Kontakt.</p></div>
+      <a class="button" href="/trainingszeiten/">Trainingszeiten ansehen</a>
+    </div>
+  </section>
+</BaseLayout>

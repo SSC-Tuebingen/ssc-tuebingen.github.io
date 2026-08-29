@@ -1,0 +1,202 @@
+media:
+  - name: images
+    label: Bilder
+    input: public/images
+    output: /images
+    rename: safe
+    extensions: [jpg, jpeg, png, webp, avif]
+  - name: documents
+    label: Dokumente
+    input: public/documents
+    output: /documents
+    rename: safe
+    categories: [document]
+
+settings:
+  commit:
+    identity: user
+
+content:
+  - name: homepage
+    label: Homepage und Vereinsdaten
+    type: file
+    path: src/data/site.json
+    format: json
+    operations: { delete: false, rename: false }
+    fields:
+      - { name: club_name, label: Vereinsname, type: string, required: true }
+      - { name: short_name, label: Kurzname, type: string, required: true }
+      - { name: address, label: Anschrift, type: string, required: true }
+      - { name: general_email, label: Allgemeine E-Mail-Adresse, type: string, required: true }
+      - { name: homepage_introduction, label: Einleitung der Homepage, type: text, required: true }
+      - { name: urgent_announcement, label: Dringender Hinweis, type: text, description: Leer lassen, wenn kein Hinweis angezeigt werden soll. }
+      - name: urgent_announcement_expires
+        label: Hinweis ausblenden ab
+        type: date
+        default: ''
+        options: { format: yyyy-MM-dd }
+
+  - name: news
+    label: Neuigkeiten
+    type: collection
+    path: src/content/news
+    format: yaml-frontmatter
+    filename: { template: "{publication_date}-{title}.md", field: create }
+    operations: { rename: false, delete: false }
+    view:
+      fields: [title, publication_date, status, featured]
+      primary: title
+      sort: [publication_date, title]
+      default: { sort: publication_date, order: desc }
+    fields:
+      - { name: title, label: Überschrift, type: string, required: true }
+      - name: publication_date
+        label: Veröffentlichungsdatum
+        type: date
+        required: true
+        options: { format: yyyy-MM-dd }
+      - name: expiration_date
+        label: Gültig bis
+        type: date
+        default: ''
+        description: Die Meldung bleibt im Archiv, wird danach aber nicht mehr hervorgehoben.
+        options: { format: yyyy-MM-dd }
+      - { name: summary, label: Kurzfassung, type: text, required: true, description: Zwei bis drei kurze Sätze für Übersichtsseiten. }
+      - name: department
+        label: Bereich
+        type: select
+        required: true
+        options:
+          values:
+            - { name: verein, label: Gesamtverein }
+            - { name: fussball, label: Fußball }
+            - { name: volleyball, label: Volleyball }
+            - { name: american-football, label: American Football }
+            - { name: cheerleading, label: Cheerleading }
+            - { name: tanzen, label: Tanzen }
+            - { name: inklusion, label: Inklusion }
+            - { name: kindersport, label: Kindersport }
+            - { name: lauftreff, label: Lauftreff }
+      - { name: featured, label: Auf der Homepage hervorheben, type: boolean, default: false }
+      - name: status
+        label: Status
+        type: select
+        required: true
+        options:
+          values:
+            - { name: draft, label: Entwurf }
+            - { name: published, label: Veröffentlicht }
+            - { name: archived, label: Archiviert }
+      - { name: image, label: Titelbild, type: image, options: { media: images } }
+      - { name: image_alt, label: Bildbeschreibung, type: string, description: Beschreibt den wesentlichen Bildinhalt für Menschen, die das Bild nicht sehen können. }
+      - { name: original_url, label: Ursprüngliche Adresse, type: string, readonly: true }
+      - name: body
+        label: Artikeltext
+        type: rich-text
+        required: true
+        options: { media: images, switcher: false }
+
+  - name: departments
+    label: Sportangebote
+    type: collection
+    path: src/content/departments
+    format: yaml-frontmatter
+    filename: "{slug}.md"
+    operations: { rename: false, delete: false }
+    view: { fields: [name, type, published], primary: name, sort: [navigation_order, name] }
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - { name: slug, label: Kurzname für die Webadresse, type: string, required: true, pattern: "^[a-z0-9-]+$" }
+      - name: type
+        label: Organisationsform
+        type: select
+        required: true
+        options:
+          values:
+            - { name: department, label: Abteilung }
+            - { name: activity, label: Angebot }
+            - { name: cooperation, label: Kooperation }
+      - { name: introduction, label: Kurzvorstellung, type: text, required: true }
+      - { name: contact, label: Kontakt-Kennung, type: string, required: true, description: Verweist auf einen Eintrag unter Kontakte. }
+      - { name: image, label: Titelbild, type: image, options: { media: images } }
+      - { name: image_alt, label: Bildbeschreibung, type: string }
+      - { name: navigation_order, label: Reihenfolge, type: number, required: true }
+      - { name: published, label: Veröffentlicht, type: boolean, default: false }
+      - name: body
+        label: Beschreibung
+        type: rich-text
+        required: true
+        options: { media: images, switcher: false }
+
+  - name: teams
+    label: Teams und Gruppen
+    type: collection
+    path: src/content/teams
+    format: yaml-frontmatter
+    filename: "{slug}.md"
+    operations: { rename: false, delete: false }
+    view: { fields: [name, department, category, published], primary: name, sort: [department, name] }
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - { name: slug, label: Kurzname für die Webadresse, type: string, required: true, pattern: "^[a-z0-9-]+$" }
+      - { name: department, label: Bereich, type: string, required: true }
+      - { name: category, label: Altersgruppe oder Kategorie, type: string }
+      - { name: contact, label: Kontakt-Kennung, type: string, required: true }
+      - { name: active_from, label: Aktiv ab, type: date, options: { format: yyyy-MM-dd } }
+      - { name: active_until, label: Aktiv bis, type: date, options: { format: yyyy-MM-dd } }
+      - { name: published, label: Veröffentlicht, type: boolean, default: false }
+      - { name: original_url, label: Ursprüngliche Adresse, type: string, readonly: true }
+      - { name: body, label: Beschreibung, type: rich-text, required: true, options: { media: images, switcher: false } }
+
+  - name: editorial_data
+    label: Zentrale Daten
+    type: group
+    items:
+      - name: contacts
+        label: Kontakte
+        type: file
+        path: src/data/contacts.json
+        format: json
+        list: true
+        operations: { delete: false, rename: false }
+        fields:
+          - { name: id, label: Kennung, type: string, required: true, pattern: "^[a-z0-9-]+$" }
+          - { name: label, label: Öffentliche Rolle, type: string, required: true }
+          - { name: email, label: Rollenbezogene E-Mail-Adresse, type: string, required: true }
+          - { name: public_name, label: Öffentlicher Name, type: string, description: Nur nach bestätigter Freigabe eintragen. }
+          - { name: active, label: Aktiv, type: boolean, default: true }
+      - name: schedules
+        label: Trainingszeiten
+        type: file
+        path: src/data/schedules.json
+        format: json
+        list: true
+        operations: { delete: false, rename: false }
+        fields:
+          - { name: team, label: Team-Kennung, type: string, required: true }
+          - name: day
+            label: Wochentag
+            type: select
+            required: true
+            options: { values: [Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag] }
+          - { name: start, label: Beginn, type: string, required: true, pattern: "^[0-2][0-9]:[0-5][0-9]$" }
+          - { name: end, label: Ende, type: string, required: true, pattern: "^[0-2][0-9]:[0-5][0-9]$" }
+          - { name: venue, label: Ort-Kennung, type: string, required: true }
+          - { name: valid_from, label: Gültig ab, type: date, options: { format: yyyy-MM-dd } }
+          - { name: valid_until, label: Gültig bis, type: date, options: { format: yyyy-MM-dd } }
+          - { name: holiday_exception, label: Entfällt in Schulferien, type: boolean, default: false }
+          - { name: note, label: Hinweis, type: text }
+      - name: documents
+        label: Dokumente
+        type: file
+        path: src/data/documents.json
+        format: json
+        list: true
+        operations: { delete: false, rename: false }
+        fields:
+          - { name: title, label: Titel, type: string, required: true }
+          - { name: category, label: Kategorie, type: string, required: true }
+          - { name: version, label: Datum oder Version, type: string, required: true }
+          - { name: file, label: Datei, type: file, options: { media: documents } }
+          - { name: description, label: Beschreibung, type: text }
+          - { name: public, label: Öffentlich anzeigen, type: boolean, default: false }

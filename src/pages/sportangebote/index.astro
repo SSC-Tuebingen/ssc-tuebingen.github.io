@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const sports = [
+  ['fussball', 'Fußball', 'Aktive, Junioren und Bambini'],
+  ['volleyball', 'Volleyball', 'Jugend-, Damen- und Herrenteams'],
+  ['american-football', 'American Football', 'Red Knights, Flag Football und Jugend'],
+  ['cheerleading', 'Cheerleading', 'Dragons von Peewees bis Seniors'],
+  ['tanzen', 'Tanzen', 'Tanztraining für Kinder'],
+  ['inklusion', 'Inklusion', 'Tübingen United'],
+  ['kindersport', 'Kindersport', 'Freude an Spiel und Bewegung'],
+  ['lauftreff', 'Lauftreff', 'Laufen und Nordic Walking'],
+];
+---
+<BaseLayout title="Sportangebote – SSC Tübingen" description="Alle Sportangebote des SSC Tübingen.">
+  <PageHero eyebrow="Sportangebote" title="Finde deinen Sport" intro="Ob Teamsport, Bewegung für Kinder oder gemeinsames Laufen: Beim SSC gibt es viele Wege, aktiv zu werden." />
+  <section class="section"><div class="shell"><div class="card-grid">{sports.map(([slug, name, description]) => <a class="sport-card" href={`/sportangebote/${slug}/`} data-mark={name.charAt(0)}><h3>{name}</h3><p>{description}</p></a>)}</div></div></section>
+</BaseLayout>

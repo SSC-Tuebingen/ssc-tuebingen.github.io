@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+const contacts = [['Vorstand','vorstand@ssc-tuebingen.de'],['Mitgliederverwaltung','mitgliederverwaltung@ssc-tuebingen.de'],['Fußball','fussball@ssc-tuebingen.de'],['Volleyball','volleyball@ssc-tuebingen.de'],['American Football','americanfootball@ssc-tuebingen.de'],['Cheerleading','cheerleading@ssc-tuebingen.de'],['Tanzen','tanzen@ssc-tuebingen.de'],['Inklusion','inklusion@ssc-tuebingen.de'],['Vermietung','vermietung@ssc-tuebingen.de']];
+---
+<BaseLayout title="Kontakt – SSC Tübingen" description="Zentrale und sportbezogene Kontakte des SSC Tübingen.">
+  <PageHero eyebrow="Kontakt" title="Direkt zur richtigen Stelle" intro="Rollenbezogene Adressen bringen dein Anliegen ohne Umwege zur zuständigen Person." />
+  <section class="section"><div class="shell"><div class="content-grid"><div><ul class="link-list">{contacts.map(([role,email]) => <li><a href={`mailto:${email}`}>{role}<br /><small>{email}</small></a></li>)}</ul></div><aside class="side-card"><h2>Hier sind wir zuhause</h2><p>Waldhäuser Straße 148<br />72076 Tübingen</p><p><a href="https://www.openstreetmap.org/search?query=Waldh%C3%A4user%20Stra%C3%9Fe%20148%2C%2072076%20T%C3%BCbingen">In OpenStreetMap öffnen</a></p></aside></div></div></section>
+</BaseLayout>

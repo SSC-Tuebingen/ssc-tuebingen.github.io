@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+export function getStaticPaths() {
+  const items = [
+    { slug: 'volleyball', name: 'Volleyball', intro: 'Jugend-, Damen- und Herrenteams mit Trainingsangeboten in Tübingen und Umgebung.', email: 'volleyball@ssc-tuebingen.de' },
+    { slug: 'american-football', name: 'American Football', intro: 'Red Knights, Jugend- und Flag-Football beim SSC Tübingen.', email: 'americanfootball@ssc-tuebingen.de' },
+    { slug: 'cheerleading', name: 'Cheerleading', intro: 'Die Tübinger Dragons verbinden Turnen, Akrobatik, Stunts und Teamgeist.', email: 'cheerleading@ssc-tuebingen.de' },
+    { slug: 'tanzen', name: 'Tanzen', intro: 'Modern Dance, Tanztheater und Improvisation für Kinder.', email: 'tanzen@ssc-tuebingen.de' },
+    { slug: 'inklusion', name: 'Inklusion', intro: 'Tübingen United steht für gemeinsamen Fußball ohne Ausgrenzung.', email: 'inklusion@ssc-tuebingen.de' },
+    { slug: 'kindersport', name: 'Kindersport', intro: 'Spielerisch Motorik, Gleichgewicht und Koordination entwickeln.', email: 'kindersport@ssc-tuebingen.de' },
+    { slug: 'lauftreff', name: 'Lauftreff', intro: 'Offener Lauf- und Nordic-Walking-Treff für verschiedene Leistungsstufen.', email: 'info@ssc-tuebingen.de' },
+  ];
+  return items.map((item) => ({ params: { slug: item.slug }, props: item }));
+}
+const item = Astro.props;
+---
+<BaseLayout title={`${item.name} – SSC Tübingen`} description={item.intro} socialImage={null}>
+  <PageHero eyebrow="Sportangebote" title={item.name} intro={item.intro} />
+  <section class="section"><div class="shell content-grid"><div class="prose"><p class="placeholder-note"><strong>Prototyp:</strong> Diese Inhaltsseite zeigt die gemeinsame Struktur. Texte, Gruppen, Termine und Bilder werden in der vollständigen Migration mit der Abteilung abgestimmt.</p><h2>Mitmachen</h2><p>Interessierte können unverbindlich Kontakt aufnehmen und nach Absprache zu einem Probetraining kommen.</p><h2>Gruppen und Training</h2><p>Die zugehörigen Gruppen und freigegebenen Trainingszeiten erscheinen hier automatisch aus zentral gepflegten Datensätzen.</p></div><aside class="side-card"><h2>Kontakt</h2><p><a href={`mailto:${item.email}`}>{item.email}</a></p><a class="button" href="/trainingszeiten/">Trainingszeiten</a></aside></div></section>
+</BaseLayout>
