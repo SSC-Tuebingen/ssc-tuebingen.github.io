@@ -4,19 +4,19 @@ import PageHero from '../../components/PageHero.astro';
 
 export function getStaticPaths() {
   const items = [
-    { slug: 'volleyball', name: 'Volleyball', intro: 'Jugend-, Damen- und Herrenteams mit Trainingsangeboten in Tübingen und Umgebung.', email: 'volleyball@ssc-tuebingen.de' },
-    { slug: 'american-football', name: 'American Football', intro: 'Red Knights, Jugend- und Flag-Football beim SSC Tübingen.', email: 'americanfootball@ssc-tuebingen.de' },
-    { slug: 'cheerleading', name: 'Cheerleading', intro: 'Die Tübinger Dragons verbinden Turnen, Akrobatik, Stunts und Teamgeist.', email: 'cheerleading@ssc-tuebingen.de' },
-    { slug: 'tanzen', name: 'Tanzen', intro: 'Modern Dance, Tanztheater und Improvisation für Kinder.', email: 'tanzen@ssc-tuebingen.de' },
-    { slug: 'inklusion', name: 'Inklusion', intro: 'Tübingen United steht für gemeinsamen Fußball ohne Ausgrenzung.', email: 'inklusion@ssc-tuebingen.de' },
-    { slug: 'kindersport', name: 'Kindersport', intro: 'Spielerisch Motorik, Gleichgewicht und Koordination entwickeln.', email: 'kindersport@ssc-tuebingen.de' },
-    { slug: 'lauftreff', name: 'Lauftreff', intro: 'Offener Lauf- und Nordic-Walking-Treff für verschiedene Leistungsstufen.', email: 'info@ssc-tuebingen.de' },
+    { slug: 'volleyball', name: 'Volleyball', type: 'Abteilung', intro: 'Jugend-, Damen- und Herrenteams mit Trainingsangeboten in Tübingen und Umgebung.', email: 'volleyball@ssc-tuebingen.de', groups: [['Damen', 'Mannschaft'], ['Herren', 'Mannschaft'], ['Weibliche Jugend', 'Jugend'], ['Männliche Jugend', 'Jugend']] },
+    { slug: 'american-football', name: 'American Football', type: 'Abteilung', intro: 'Die Red Knights stehen für Tackle- und Flag-Football in mehreren Altersklassen.', email: 'americanfootball@ssc-tuebingen.de', groups: [['1. Mannschaft', 'Tackle Football'], ['Damen', 'Tackle Football'], ['A- und B-Jugend', 'U19 und U17'], ['Flag-Jugend und U15', 'Nachwuchs']] },
+    { slug: 'cheerleading', name: 'Cheerleading', type: 'Abteilung', intro: 'Die Tübinger Dragons verbinden Turnen, Akrobatik, Stunts und Teamgeist.', email: 'cheerleading@ssc-tuebingen.de', groups: [['Dragonstorm', 'Seniors'], ['Dragonfire', 'Juniors'], ['Dragonsparks', 'Peewees'], ['Hochschulsport', 'Kurse'], ['Auftritte', 'Rent us']] },
+    { slug: 'tanzen', name: 'Tanzen', type: 'Abteilung', intro: 'Modern Dance, Tanztheater und Improvisation für Kinder.', email: 'tanzen@ssc-tuebingen.de', groups: [['Kindertanz', 'Kinder und Grundschulalter']] },
+    { slug: 'kindersport', name: 'Kindersport', type: 'Abteilung', intro: 'Spielerisch Motorik, Gleichgewicht und Koordination entwickeln.', email: 'kindersport@ssc-tuebingen.de', groups: [['Spiel und Bewegung', 'Kinder von 4 bis 6 Jahren']] },
+    { slug: 'inklusion', name: 'Inklusion', type: 'Kooperation', intro: 'Tübingen United steht für gemeinsamen Fußball ohne Ausgrenzung.', email: 'inklusion@ssc-tuebingen.de', groups: [['Tübingen United', 'Inklusiver Fußball']] },
+    { slug: 'lauftreff', name: 'Lauftreff', type: 'Offenes Angebot', intro: 'Gemeinsames Laufen und Nordic Walking für verschiedene Leistungsstufen.', email: 'info@ssc-tuebingen.de', groups: [['Laufen', 'Verschiedene Distanzen und Tempi'], ['Nordic Walking', 'Gemeinsam in Bewegung']] },
   ];
   return items.map((item) => ({ params: { slug: item.slug }, props: item }));
 }
 const item = Astro.props;
 ---
 <BaseLayout title={`${item.name} – SSC Tübingen`} description={item.intro} socialImage={null}>
-  <PageHero eyebrow="Sportangebote" title={item.name} intro={item.intro} />
-  <section class="section"><div class="shell content-grid"><div class="prose"><p class="placeholder-note"><strong>Prototyp:</strong> Diese Inhaltsseite zeigt die gemeinsame Struktur. Texte, Gruppen, Termine und Bilder werden in der vollständigen Migration mit der Abteilung abgestimmt.</p><h2>Mitmachen</h2><p>Interessierte können unverbindlich Kontakt aufnehmen und nach Absprache zu einem Probetraining kommen.</p><h2>Gruppen und Training</h2><p>Die zugehörigen Gruppen und freigegebenen Trainingszeiten erscheinen hier automatisch aus zentral gepflegten Datensätzen.</p></div><aside class="side-card"><h2>Kontakt</h2><p><a href={`mailto:${item.email}`}>{item.email}</a></p><a class="button" href="/trainingszeiten/">Trainingszeiten</a></aside></div></section>
+  <PageHero eyebrow={`Sportangebote · ${item.type}`} title={item.name} intro={item.intro} />
+  <section class="section"><div class="shell content-grid"><div class="prose"><p class="placeholder-note"><strong>Seitenskelett:</strong> Gruppenbezeichnungen stammen aus der bisherigen Website. Aktuelle Texte, Zeiten, Kontakte und Bilder werden vor der Freigabe mit dem jeweiligen Bereich abgestimmt.</p><h2>Gruppen und Bereiche</h2><ul class="group-grid">{item.groups.map(([name, category]) => <li><span class="tag">{category}</span><h3>{name}</h3><p>Details, Trainingszeiten und Hinweise folgen.</p></li>)}</ul><h2>Training und Probetraining</h2><p>Hier stehen künftig die bestätigten Trainingszeiten, Trainingsorte, Altersgruppen und Hinweise zur Anmeldung oder zum Probetraining.</p><h2>Aktuelles aus dem Bereich</h2><p>Freigegebene Meldungen dieses Bereichs werden hier automatisch angezeigt.</p></div><aside class="side-card"><p class="eyebrow">{item.type}</p><h2>Kontakt</h2><p>Fragen zum Angebot und zum Mitmachen:</p><p><a href={`mailto:${item.email}`}>{item.email}</a></p><a class="button" href="/trainingszeiten/">Trainingszeiten</a></aside></div></section>
 </BaseLayout>

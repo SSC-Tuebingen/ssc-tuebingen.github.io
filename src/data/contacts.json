@@ -1,5 +1,13 @@
 [
   { "id": "vorstand", "label": "Vorstand", "email": "vorstand@ssc-tuebingen.de", "public_name": "", "active": true },
   { "id": "mitgliederverwaltung", "label": "Mitgliederverwaltung", "email": "mitgliederverwaltung@ssc-tuebingen.de", "public_name": "", "active": true },
-  { "id": "fussball", "label": "Fußball", "email": "fussball@ssc-tuebingen.de", "public_name": "", "active": true }
+  { "id": "fussball", "label": "Fußball", "email": "fussball@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "fussballjugend", "label": "Fußballjugend", "email": "fussballjugend@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "volleyball", "label": "Volleyball", "email": "volleyball@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "american-football", "label": "American Football", "email": "americanfootball@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "cheerleading", "label": "Cheerleading", "email": "cheerleading@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "tanzen", "label": "Tanzen", "email": "tanzen@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "kindersport", "label": "Kindersport", "email": "kindersport@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "inklusion", "label": "Inklusion", "email": "inklusion@ssc-tuebingen.de", "public_name": "", "active": true },
+  { "id": "lauftreff", "label": "Lauftreff", "email": "info@ssc-tuebingen.de", "public_name": "", "active": true }
 ]

@@ -81,6 +81,7 @@ p { margin: 0 0 1rem; }
 .section-head { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 2rem; }
 .section-head > div { max-width: 45rem; }
 .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.card-grid-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 36rem; }
 .sport-card { position: relative; min-height: 12rem; display: flex; flex-direction: column; justify-content: end; padding: 1.2rem; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: 0 0.3rem 1rem rgb(11 42 82 / 0.05); text-decoration: none; }
 .sport-card::before { content: attr(data-mark); position: absolute; top: -0.55rem; right: 0.55rem; color: var(--blue-100); font-size: 5.5rem; font-weight: 950; line-height: 1; }
 .sport-card:hover { transform: translateY(-2px); border-color: #9cb8d6; color: inherit; box-shadow: var(--shadow); }
@@ -104,6 +105,10 @@ p { margin: 0 0 1rem; }
 .prose h3 { margin-top: 1.7rem; }
 .prose ul { padding-left: 1.2rem; }
 .prose li + li { margin-top: 0.45rem; }
+.group-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; list-style: none; padding: 0; margin: 1.5rem 0 0; }
+.group-grid li { min-height: 9rem; padding: 1rem; border: 1px solid var(--line); border-top: 0.3rem solid var(--gold-500); border-radius: 0.7rem; background: #fff; }
+.group-grid h3 { margin-top: 0.7rem; }
+.group-grid p { color: var(--muted); font-size: 0.92rem; margin-bottom: 0; }
 .side-card { padding: 1.2rem; border-left: 0.35rem solid var(--gold-500); border-radius: var(--radius); background: var(--blue-100); }
 .side-card p:last-child { margin-bottom: 0; }
 .link-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; list-style: none; padding: 0; margin: 2rem 0 0; }
@@ -147,7 +152,7 @@ p { margin: 0 0 1rem; }
 @media (max-width: 38rem) {
   .brand-copy small { display: none; }
   .section-head, .footer-grid { align-items: stretch; flex-direction: column; }
-  .card-grid, .news-grid, .quick-panel { grid-template-columns: 1fr; }
+  .card-grid, .news-grid, .quick-panel, .group-grid { grid-template-columns: 1fr; }
   .link-list { grid-template-columns: 1fr; }
   .document-list li { grid-template-columns: 1fr; }
   .news-card.featured { grid-column: auto; }
