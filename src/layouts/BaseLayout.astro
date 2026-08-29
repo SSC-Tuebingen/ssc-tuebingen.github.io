@@ -38,6 +38,15 @@ const absoluteSocialImage = socialImage ? new URL(socialImage, Astro.site) : nul
   <body>
     <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
     <Header />
+    <aside class="construction-banner" aria-label="Hinweis zur Website">
+      <div class="shell construction-banner-inner">
+        <strong>Website im Aufbau</strong>
+        <p>
+          Diese Website befindet sich noch im Aufbau. Die offizielle Website des SSC Tübingen finden Sie weiterhin unter
+          <a href="https://www.ssc-tuebingen.de/">ssc-tuebingen.de</a>.
+        </p>
+      </div>
+    </aside>
     <main id="inhalt">
       <slot />
     </main>
